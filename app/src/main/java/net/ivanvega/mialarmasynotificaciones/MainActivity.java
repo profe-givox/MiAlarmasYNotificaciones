@@ -29,12 +29,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //1) Crear el canal de notificaciones
         MiReceiverAlarma.createNotificationChannel(getApplicationContext(), null);
 
         //createNotificationChannel(getApplicationContext(), null);
 
         btnNot = findViewById(R.id.btnNot);
         btnNot.setOnClickListener(view -> {
+            //2) Construir  notificacion y lnzar
             this.mostrarNotificacion(getApplicationContext(), null);
         });
 
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     void programarAlarma(){
         Toast.makeText(this, "Se programo alarma de 60 s", Toast.LENGTH_LONG).show();
 
+        //ALARMA. 1) Alarm Manager
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
 /*
@@ -59,11 +62,14 @@ public class MainActivity extends AppCompatActivity {
          alarmManager.setAlarmClock();
 */
 
-        Intent intent = new Intent(getApplicationContext(), MiReceiverAlarma.class);
+        //Alarma. 2) Definir un Pending Intent para cachar cuando la alarma sea lanzada.
+        // Se requiere crear un Broadcast Receiver
+        Intent intent = new Intent(getApplicationContext(),
+                MiReceiverAlarma.class);
+        PendingIntent alarmIntent =
+                PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
 
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() +
                         10 * 1000, alarmIntent);
 
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         //createNotificationChannel(context,intent);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Titulo recordatorio")
                 .setContentText("Te recuerdo tarea pendiente")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
@@ -98,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
+
             NotificationManager notificationManager = ctx.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }

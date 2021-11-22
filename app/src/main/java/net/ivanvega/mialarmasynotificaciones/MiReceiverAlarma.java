@@ -19,8 +19,8 @@ public class MiReceiverAlarma extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d("DIF-ALARMA", "PERRO-ROJO");
         mostrarNotificacion(context, intent);
-            Log.d("DIF-ALARMA", intent.getAction());
-            Log.d("DIF-ALARMA", intent.getDataString());
+            Log.d("DIF-ALARMA", "NOTIFICACION LANZADA");
+
 
 
     }

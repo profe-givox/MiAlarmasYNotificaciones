@@ -17,15 +17,16 @@ public class MiReceiverAlarma extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        Log.d("DIF-ALARMA", "PERRO-ROJO");
+        mostrarNotificacion(context, intent);
             Log.d("DIF-ALARMA", intent.getAction());
             Log.d("DIF-ALARMA", intent.getDataString());
 
-            mostrarNotificacion(context, intent);
+
     }
 
     private void mostrarNotificacion(Context context, Intent intent) {
-        createNotificationChannel(context,intent);
+        //createNotificationChannel(context,intent);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
@@ -41,7 +42,7 @@ public class MiReceiverAlarma extends BroadcastReceiver {
 
     }
 
-    private void createNotificationChannel(Context ctx, Intent intent) {
+    public static void createNotificationChannel(Context ctx, Intent intent) {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

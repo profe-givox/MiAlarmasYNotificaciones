@@ -19,8 +19,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".MiReceiverAlarma">
-            
+        <receiver android:name=".MiReceiverAlarma"
+            android:exported="true"
+            >
+
 
         </receiver>
 

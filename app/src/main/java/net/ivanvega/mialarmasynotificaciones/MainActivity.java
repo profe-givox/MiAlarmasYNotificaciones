@@ -32,10 +32,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int idTarea =
-                getIntent().getIntExtra("idTarea", -1);
+        Intent intentPar = getIntent();
 
-        Log.d("IDENVIADO", "Se lanzo por noti el ID " + idTarea);
+        int idTarea = intentPar.getIntExtra("idTarea", -1);
+
+        Log.d("IDTAREA", "Id DEL intent" + idTarea);
 
         //1) Crear el canal de notificaciones
         MiReceiverAlarma.createNotificationChannel(getApplicationContext(), null);
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() +
-                        20 * 1000, alarmIntent);
+                        10 * 1000, alarmIntent);
 
         //alarmManager.setRepeating();
 

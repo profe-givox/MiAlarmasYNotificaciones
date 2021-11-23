@@ -13,7 +13,8 @@
         android:theme="@style/Theme.MiAlarmasYNotificaciones">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,14 +25,6 @@
         <receiver android:name=".MiReceiverAlarma"
             android:exported="true"
             >
-        </receiver>
-
-        <receiver android:name=".SampleBootReceiver"
-            android:exported="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            </intent-filter>
         </receiver>
 
     </application>

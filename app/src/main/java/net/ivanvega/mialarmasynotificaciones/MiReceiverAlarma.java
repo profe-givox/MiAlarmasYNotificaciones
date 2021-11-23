@@ -18,6 +18,7 @@ public class MiReceiverAlarma extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        //Log.d("ALARMA-INTENT", intent.getAction());
         Log.d("DIF-ALARMA", "PERRO-ROJO");
         mostrarNotificacion(context, intent);
             Log.d("DIF-ALARMA", "NOTIFICACION LANZADA");
@@ -28,21 +29,24 @@ public class MiReceiverAlarma extends BroadcastReceiver {
         //createNotificationChannel(context,intent);
 
         // Create an explicit intent for an Activity in your app
+        //PendingIntent.FLAG_UPDATE_CURRENT
+
         Intent intentTap = new Intent(context, MainActivity.class);
-        intentTap.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intentTap.putExtra("idTarea", 1);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                0, intentTap, 0);
+
+        intentTap.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        intentTap.putExtra("idTarea", 1001);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+                intentTap, PendingIntent.FLAG_UPDATE_CURRENT );
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Titulo recordatorio")
                 .setContentText("Te recuerdo tarea pendiente")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                ;
                 ;
 
 

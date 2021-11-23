@@ -2,6 +2,7 @@ package net.ivanvega.mialarmasynotificaciones;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -21,18 +22,29 @@ public class MiReceiverAlarma extends BroadcastReceiver {
         mostrarNotificacion(context, intent);
             Log.d("DIF-ALARMA", "NOTIFICACION LANZADA");
 
-
-
     }
 
     private void mostrarNotificacion(Context context, Intent intent) {
         //createNotificationChannel(context,intent);
 
+        // Create an explicit intent for an Activity in your app
+        Intent intentTap = new Intent(context, MainActivity.class);
+        intentTap.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intentTap.putExtra("idTarea", 1);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                0, intentTap, 0);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_background)
                 .setContentTitle("Titulo recordatorio")
                 .setContentText("Te recuerdo tarea pendiente")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                ;
+                ;
+
 
         NotificationManagerCompat notificationManager =
                 NotificationManagerCompat.from(context);

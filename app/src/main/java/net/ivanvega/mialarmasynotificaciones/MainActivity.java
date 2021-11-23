@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -24,10 +25,17 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnNot, btnAlar;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        int idTarea =
+                getIntent().getIntExtra("idTarea", -1);
+
+        Log.d("IDENVIADO", "Se lanzo por noti el ID " + idTarea);
 
         //1) Crear el canal de notificaciones
         MiReceiverAlarma.createNotificationChannel(getApplicationContext(), null);
@@ -71,7 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
         alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() +
-                        10 * 1000, alarmIntent);
+                        20 * 1000, alarmIntent);
+
+        //alarmManager.setRepeating();
+
+
 
     }
 
